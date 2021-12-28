@@ -1051,10 +1051,10 @@ class Milvus:
             travel_timestamp=kwargs.get("travel_timestamp", 0),
             guarantee_timestamp=kwargs.get("guarantee_timestamp", 0)
         )
-        LOGGER.info('check_pass_param done being called')is being
+        LOGGER.info('check_pass_param done being called')
         with self._connection() as handler:
             kwargs["_deploy_mode"] = self._deploy_mode
-            LOGGER.info(f'handler {handler}')
+            LOGGER.info(f'handler = {handler}')
             return handler.search(collection_name, data, anns_field, param, limit, expression,
                                   partition_names, output_fields, timeout, round_decimal, **kwargs)
 
