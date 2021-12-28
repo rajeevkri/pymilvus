@@ -1040,6 +1040,7 @@ class Milvus:
         :raises ParamError: If parameters are invalid
         :raises BaseException: If the return result from server is not ok
         """
+        LOGGER.info('check_pass_param is being called')
         check_pass_param(
             limit=limit,
             round_decimal=round_decimal,
@@ -1050,8 +1051,10 @@ class Milvus:
             travel_timestamp=kwargs.get("travel_timestamp", 0),
             guarantee_timestamp=kwargs.get("guarantee_timestamp", 0)
         )
+        LOGGER.info('check_pass_param done being called')is being
         with self._connection() as handler:
             kwargs["_deploy_mode"] = self._deploy_mode
+            LOGGER.info(f'handler {handler}')
             return handler.search(collection_name, data, anns_field, param, limit, expression,
                                   partition_names, output_fields, timeout, round_decimal, **kwargs)
 
