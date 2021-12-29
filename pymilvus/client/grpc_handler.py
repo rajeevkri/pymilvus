@@ -575,6 +575,8 @@ class GrpcHandler:
 
     @error_handler(None)
     def _execute_search_requests(self, requests, timeout=None, **kwargs):
+        LOGGER.info('grpc_handler _execute_search_requests method being called')
+
         auto_id = kwargs.get("auto_id", True)
 
         try:
@@ -628,6 +630,7 @@ class GrpcHandler:
     def search(self, collection_name, data, anns_field, param, limit,
                expression=None, partition_names=None, output_fields=None,
                timeout=None, round_decimal=-1, **kwargs):
+        LOGGER.info('grpc_handler search method being called')
         _kwargs = copy.deepcopy(kwargs)
         collection_schema = self.describe_collection(collection_name, timeout)
         collection_id = collection_schema["collection_id"]
@@ -642,6 +645,7 @@ class GrpcHandler:
         _kwargs.pop("schema")
         _kwargs["auto_id"] = auto_id
         _kwargs["round_decimal"] = round_decimal
+        LOGGER.info('grpc_handler search argument built')
 
         return self._execute_search_requests(requests, timeout, **_kwargs)
 
