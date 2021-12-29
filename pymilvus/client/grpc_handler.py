@@ -588,9 +588,14 @@ class GrpcHandler:
                 ft = self._stub.Search.future(request, wait_for_ready=True, timeout=timeout)
                 futures.append(ft)
 
+            LOGGER.info(f'futures = {futures}')
+
             if kwargs.get("_async", False):
+                LOGGER.info('grpc_handler _async is false')
                 func = kwargs.get("_callback", None)
                 return ChunkedSearchFuture(futures, func, auto_id)
+
+            LOGGER.info('grpc_handler _async is true')
 
             # step2: get results
             for ft in futures:
