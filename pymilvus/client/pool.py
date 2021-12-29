@@ -105,11 +105,13 @@ class ConnectionPool:
     def _prepare(self):
         conn = self.fetch()
         with self._condition:
+            LOGGER.info(f'Version of python SDK(v{__version__}) excepted is v{support_versions}')
             if self._try_connect:
                 # LOGGER.debug("Try connect server {}".format(self._uri))
                 conn.client().ping()
 
             status, version = conn.client().server_version(timeout=30)
+            LOGGER.info(f' printing server v{version},')
             if not status.OK():
                 raise NotConnectError("Cannot check server version: {}".format(status.message))
             if not _is_version_match(version):
